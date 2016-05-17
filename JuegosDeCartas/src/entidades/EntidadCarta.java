@@ -2,6 +2,10 @@ package entidades;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Timer;
 
 import cartas.Numero;
 import cartas.Palo;
@@ -14,12 +18,48 @@ public class EntidadCarta extends Entidad {
 	private int palo;
 	private int numero;
 	private boolean levantada;
+	private Timer t;
+	
+	private int x1, y1, x2, y2;
 	
 	public EntidadCarta(int x, int y, int palo, int numero, boolean levantada, Juego juego) {
 		super(x, y, juego);
 		this.palo = palo;
 		this.numero = numero;
 		this.levantada = levantada;
+	}
+	
+	public void animacion(int xa1, int ya1, int xa2, int ya2) {		
+		x1 = xa1;
+		y1 = ya1;
+		x2 = xa2;
+		y2 = ya2;
+		ActionListener listener = new ActionListener() {
+			double deltaX = (x2-x1)/10;
+			double deltaY = (y2-y1)/10;
+			public void actionPerformed(ActionEvent e) {
+				x += deltaX;
+				y += deltaY;
+				if(x <= x2) {
+					x = x2;
+				}
+				if(y2 < y1 && y <= y2) {
+					y = y2;
+				} else if(y2 >= y1 && y >= y2) {
+					y = y2;
+				}
+				if(x == x2 && y == y2) {
+					pararTimer();
+				}
+			}
+		};
+		t = new Timer(25, listener);
+		t.setRepeats(true);
+		t.start();
+	}
+	
+	private void pararTimer() {
+		t.stop();		
 	}
 	
 	public int getPalo() {

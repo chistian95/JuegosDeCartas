@@ -35,8 +35,7 @@ public class JuegoBlackJack extends Juego {
 		jugador.getMano().add(carta);
 		int x = ventana.getWidth()/2-128 + 34*jugador.getMano().size();
 		int y = ventana.getHeight()/2 + 64;
-		carta.setX(x);
-		carta.setY(y);
+		carta.animacion(carta.getX(), carta.getY(), x, y);
 		carta.setLevantada(true);
 		puntosJugador.setTexto(jugador.getPuntos()+"");
 		
@@ -55,8 +54,7 @@ public class JuegoBlackJack extends Juego {
 			casa.getMano().add(carta);
 			int x = ventana.getWidth()/2-128 + 34*casa.getMano().size();
 			int y = ventana.getHeight()/2-200 + 64;
-			carta.setX(x);
-			carta.setY(y);
+			carta.animacion(carta.getX(), carta.getY(), x, y);
 			return true;
 		}
 		return false;

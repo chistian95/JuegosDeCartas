@@ -12,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.util.ListIterator;
 
 import javax.swing.JFrame;
 import javax.swing.Timer;
@@ -62,7 +63,9 @@ public class Ventana extends JFrame implements MouseListener, KeyListener {
 		bff.setColor(new Color(0, 126, 0));
 		bff.fillRect(0, 0, getWidth(), getHeight());
 		
-		for(Entidad en : juego.getEntidades()) {
+		ListIterator<Entidad> it = juego.getEntidades().listIterator();
+		while(it.hasNext()) {
+			Entidad en = it.next();
 			en.pintar(bff);
 		}
 		
