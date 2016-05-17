@@ -23,10 +23,13 @@ public class EntidadDardo extends Entidad {
 	private BufferedImage img;
 	private EntidadCaja barra;
 	private int puntos;
+	private boolean disparado;
 
 	public EntidadDardo(int x, int y, Juego juego) {
 		super(x, y, juego);
 		potencia = 100;
+		puntos = 0;
+		disparado = false;
 		try {
 			img = ImageIO.read(ClassLoader.getSystemResourceAsStream("res/dardo.png"));
 		} catch (IOException e) {
@@ -105,10 +108,6 @@ public class EntidadDardo extends Entidad {
 	private void pararTimer() {
 		t.stop();
 	}
-	
-	private void mostrarPuntos() {
-		new EntidadTexto(50, juego.getVentana().getHeight()-100, puntos+" puntos", juego);
-	}
 
 	private void comprobarColision() {
 		JuegoDardos jg = (JuegoDardos) juego;
@@ -122,12 +121,12 @@ public class EntidadDardo extends Entidad {
 			int y1 = (int) Math.pow(Math.abs(y-yc), 2);
 			int res = (int) Math.sqrt(x1+y1);
 			if(res <= radio) {
-				puntos = i*30;				
+				puntos = i*30+10;				
 				break;
 			}
 			
 		}
-		mostrarPuntos();
+		disparado = true;
 	}
 
 	@Override
@@ -142,6 +141,10 @@ public class EntidadDardo extends Entidad {
 	
 	public int getPuntos() {
 		return puntos;
+	}
+	
+	public boolean isDisparado() {
+		return disparado;
 	}
 
 }

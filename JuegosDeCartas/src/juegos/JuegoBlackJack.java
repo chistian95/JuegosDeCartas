@@ -24,7 +24,7 @@ public class JuegoBlackJack extends Juego {
 		jugador = new Jugador();
 		casa = new Jugador();
 		
-		puntosJugador = new EntidadTexto(ventana.getWidth()/2-150, ventana.getHeight()/2+64, jugador.getPuntos()+"", this);
+		puntosJugador = new EntidadTexto(ventana.getWidth()/2-150, ventana.getHeight()/2+64, jugador.calcPuntos()+"", this);
 		entidades.add(puntosJugador);
 	}
 	
@@ -37,9 +37,9 @@ public class JuegoBlackJack extends Juego {
 		int y = ventana.getHeight()/2 + 64;
 		carta.animacion(carta.getX(), carta.getY(), x, y);
 		carta.setLevantada(true);
-		puntosJugador.setTexto(jugador.getPuntos()+"");
+		puntosJugador.setTexto(jugador.calcPuntos()+"");
 		
-		if(jugador.getPuntos() >= 21) {
+		if(jugador.calcPuntos() >= 21) {
 			terminar();	
 		} else {
 			turnoCasa();
@@ -47,7 +47,7 @@ public class JuegoBlackJack extends Juego {
 	}
 	
 	private boolean turnoCasa() {
-		if(casa.getPuntos() < 16 && casa.getPuntos() < jugador.getPuntos()) {
+		if(casa.calcPuntos() < 16 && casa.calcPuntos() < jugador.calcPuntos()) {
 			int ultCarta = ultimaCarta();
 			EntidadCarta carta = mazo.get(ultCarta);
 			mazo.remove(ultCarta);
@@ -75,20 +75,20 @@ public class JuegoBlackJack extends Juego {
 	}
 	
 	private void terminar() {
-		if(jugador.getPuntos() <= 21) {
+		if(jugador.calcPuntos() <= 21) {
 			while(turnoCasa()) {}
 		}
 		for(EntidadCarta c : casa.getMano()) {
 			c.setLevantada(true);
 		}
-		new EntidadTexto(ventana.getWidth()/2-150, ventana.getHeight()/2-200+64, casa.getPuntos()+"", this);
+		new EntidadTexto(ventana.getWidth()/2-150, ventana.getHeight()/2-200+64, casa.calcPuntos()+"", this);
 		
 		String mensaje = "Has perdido!";
-		if(jugador.getPuntos() > 21) {
+		if(jugador.calcPuntos() > 21) {
 			mensaje = "Has perdido!";
-		} else if(casa.getPuntos() > 21) {
+		} else if(casa.calcPuntos() > 21) {
 			mensaje = "Has ganado!";
-		} else if(jugador.getPuntos() > casa.getPuntos()) {
+		} else if(jugador.calcPuntos() > casa.calcPuntos()) {
 			mensaje = "Has ganado!";
 		}
 		new EntidadTexto(ventana.getWidth()/2-50, ventana.getHeight()/2-150, mensaje, this);
@@ -146,7 +146,7 @@ public class JuegoBlackJack extends Juego {
 		jugador = new Jugador();
 		casa = new Jugador();
 		
-		puntosJugador = new EntidadTexto(ventana.getWidth()/2-150, ventana.getHeight()/2+64, jugador.getPuntos()+"", this);
+		puntosJugador = new EntidadTexto(ventana.getWidth()/2-150, ventana.getHeight()/2+64, jugador.calcPuntos()+"", this);
 		entidades.add(puntosJugador);
 	}
 	

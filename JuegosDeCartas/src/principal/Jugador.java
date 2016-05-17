@@ -8,6 +8,7 @@ import entidades.EntidadCarta;
 
 public class Jugador {
 	private List<EntidadCarta> mano;
+	private int puntos;
 	private String nombre;
 	
 	public Jugador() {
@@ -17,13 +18,14 @@ public class Jugador {
 	public Jugador(String nombre) {
 		mano = new ArrayList<EntidadCarta>();
 		this.nombre = nombre;
+		puntos = 0;
 	}
 	
 	public List<EntidadCarta> getMano() {
 		return mano;
 	}
 	
-	public int getPuntos() {
+	public int calcPuntos() {
 		int puntos = 0;
 		int ases = 0;
 		for(EntidadCarta c : mano) {
@@ -42,6 +44,14 @@ public class Jugador {
 			}
 		}
 		return puntos;
+	}
+	
+	public int getPuntos() {
+		return puntos;
+	}
+	
+	public void setPuntos(int p) {
+		puntos = p;
 	}
 	
 	public String getNombre() {
