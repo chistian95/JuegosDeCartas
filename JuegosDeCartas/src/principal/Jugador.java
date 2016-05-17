@@ -8,9 +8,15 @@ import entidades.EntidadCarta;
 
 public class Jugador {
 	private List<EntidadCarta> mano;
+	private String nombre;
 	
 	public Jugador() {
+		this("");
+	}
+	
+	public Jugador(String nombre) {
 		mano = new ArrayList<EntidadCarta>();
+		this.nombre = nombre;
 	}
 	
 	public List<EntidadCarta> getMano() {
@@ -36,5 +42,9 @@ public class Jugador {
 			}
 		}
 		return puntos;
+	}
+	
+	public String getNombre() {
+		return nombre;
 	}
 }
