@@ -3,22 +3,38 @@ package principal;
 import java.util.ArrayList;
 import java.util.List;
 
-import carta.Carta;
+import cartas.Numero;
+import entidades.EntidadCarta;
 
 public class Jugador {
-	private List<Carta> mano;
-	private boolean ia;
+	private List<EntidadCarta> mano;
 	
-	public Jugador(boolean ia) {
-		this.ia = ia;
-		mano = new ArrayList<Carta>();
+	public Jugador() {
+		mano = new ArrayList<EntidadCarta>();
 	}
 	
-	public List<Carta> getMano() {
+	public List<EntidadCarta> getMano() {
 		return mano;
 	}
 	
-	public boolean isIa() {
-		return ia;
+	public int getPuntos() {
+		int puntos = 0;
+		int ases = 0;
+		for(EntidadCarta c : mano) {
+			if(c.getNumero() == Numero.C_A) {
+				ases++;
+			}
+			if(c.getNumero() >= Numero.C_J) {
+				puntos += 10;
+			} else {
+				puntos += c.getNumero()+1;
+			}			
+		}
+		for(int i=0; i<ases; i++) {
+			if(puntos+10 <= 21) {
+				puntos+=10;
+			}
+		}
+		return puntos;
 	}
 }

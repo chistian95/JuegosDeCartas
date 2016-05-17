@@ -1,4 +1,4 @@
-package carta;
+package cartas;
 
 public class Numero {
 	public static final String[] NUMEROS = {

@@ -86,7 +86,7 @@ public class Ventana extends JFrame implements MouseListener, KeyListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
+		juego.getRaton().ratonPulsado(e);
 	}
 
 	@Override

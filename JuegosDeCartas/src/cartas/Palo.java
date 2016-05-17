@@ -1,4 +1,4 @@
-package carta;
+package cartas;
 
 public class Palo {
 	public static final String[] PALOS = {

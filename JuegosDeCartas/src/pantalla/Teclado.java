@@ -21,6 +21,7 @@ public class Teclado {
 			String accion = entrada.getValue();
 			if(tecla == e.getKeyCode()) {
 				juego.ejecutarAccion(accion);
+				return;
 			}
 		}
 	}
