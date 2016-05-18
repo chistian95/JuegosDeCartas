@@ -12,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.util.ConcurrentModificationException;
 import java.util.ListIterator;
 
 import javax.swing.JFrame;
@@ -65,8 +66,11 @@ public class Ventana extends JFrame implements MouseListener, KeyListener {
 		
 		ListIterator<Entidad> it = juego.getEntidades().listIterator();
 		while(it.hasNext()) {
-			Entidad en = it.next();
-			en.pintar(bff);
+			try  {
+				Entidad en = it.next();
+				en.pintar(bff);
+			} catch(ConcurrentModificationException e) {}
+			
 		}
 		
 		g.drawImage(bf, 0, 0, null);

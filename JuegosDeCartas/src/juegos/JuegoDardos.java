@@ -7,12 +7,15 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import entidades.EntidadBoton;
 import entidades.EntidadCirculo;
 import entidades.EntidadDardo;
 import entidades.EntidadTexto;
+import menu.MenuPrincipal;
+import pantalla.Ventana;
 import principal.Jugador;
 
-public class JuegoDardos extends Juego {
+public class JuegoDardos extends Juego implements Runnable {
 	private static final int LIMITE_PUNTOS = 900;
 	
 	private int nJugadores;
@@ -24,16 +27,19 @@ public class JuegoDardos extends Juego {
 	private EntidadTexto textoPuntos;
 	private boolean terminado;
 	
-	public JuegoDardos() {
-		super();
+	public JuegoDardos(Ventana ventana) {
+		super(ventana);
 		nJugadores = Integer.parseInt(JOptionPane.showInputDialog("Introduce el Nº de jugadores"));
 		crearJugadores();
 		crearDiana();
+		crearBotones();
 		terminado = false;
 		teclado.crearListenerTeclado(KeyEvent.VK_SPACE, "disparar");
 		textoPuntos = new EntidadTexto(50, ventana.getHeight()-100, "", this);
-		
-		while(true) {
+	}
+	
+	public void run() {
+		while(!terminado) {
 			for(int j=0; j<nJugadores; j++) {	
 				textoJugadores.get(j).setColor(Color.RED);
 				dardo = new EntidadDardo[3];
@@ -69,10 +75,7 @@ public class JuegoDardos extends Juego {
 					break;
 				}
 			}
-			if(terminado) {
-				break;
-			}
-		}		
+		}
 	}
 	
 	private void crearJugadores() {
@@ -107,11 +110,21 @@ public class JuegoDardos extends Juego {
 		diana.add(d);
 	}
 	
+	private void crearBotones() {
+		botones = new ArrayList<EntidadBoton>();
+		
+		EntidadBoton boton1 = new EntidadBoton(0, ventana.getHeight()-30, 65, 30, "Salir", "salir", this);
+		
+		botones.add(boton1);
+	}
+	
 	@Override
 	public void ejecutarAccion(String accion) {
 		super.ejecutarAccion(accion);
 		if(accion.equals("disparar")) {
 			dardoActivo.disparar();
+		} else if(accion.equals("salir")) {
+			new Thread(new MenuPrincipal(ventana)).start();
 		}
 	}
 	

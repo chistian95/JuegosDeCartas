@@ -15,7 +15,7 @@ public class EntidadBoton extends Entidad {
 	private int alto;
 	private String texto;
 	private String accion;
-        private boolean activado;
+	private boolean activado;
 
 	public EntidadBoton(int x, int y, int ancho, int alto, String texto, String accion, Juego juego) {
 		super(x, y, juego);
@@ -23,7 +23,7 @@ public class EntidadBoton extends Entidad {
 		this.alto = alto;
 		this.texto = texto;
 		this.accion = accion;
-                activado = true; 
+		activado = true;
 	}
 
 	@Override
@@ -40,10 +40,10 @@ public class EntidadBoton extends Entidad {
 
 		g.setColor(Color.WHITE);
 		g.setFont(fuente);
-                FontMetrics fm = g.getFontMetrics();
-                Rectangle2D r = fm.getStringBounds(texto, g);
-                int dx = (ancho - (int) r.getWidth())/2;
-                int dy = (alto - (int) r.getHeight())/2 + fm.getAscent();
+		FontMetrics fm = g.getFontMetrics();
+		Rectangle2D r = fm.getStringBounds(texto, g);
+		int dx = (ancho - (int) r.getWidth())/2;
+		int dy = (alto - (int) r.getHeight())/2 + fm.getAscent();
 		g.drawString(texto, x+dx, y+dy);
 	}
 	
@@ -58,12 +58,12 @@ public class EntidadBoton extends Entidad {
 	public int getY2() {
 		return y+alto;
 	}
-
-        public void setActivado(boolean b) {
-                activado = b;
-        }
-
-        public boolean isActivado() {
-                return activado; 
-        }
+	
+	public void setActivado(boolean b) {
+		activado = b;
+	}
+	
+	public boolean isActivado() {
+		return activado;
+	}
 }

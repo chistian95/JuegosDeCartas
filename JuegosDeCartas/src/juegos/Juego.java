@@ -29,18 +29,19 @@ public abstract class Juego implements Runnable {
 		teclado.crearListenerTeclado(KeyEvent.VK_ESCAPE, "cerrar");
 	}
 	
-        public Juego(Ventana ventana) {
-                 teclado = new Teclado(this);
-                 raton = new Raton(this);
-                 entidades = new ArrayList<Entidad>();
-                 botones = new ArrayList<EntidadBoton>();
-                 this.ventana = ventana;
-                 ventana.setJuego(this);
-                 terminado = false;
-
-                 teclado.crearListenerTeclado(KeyEvent.VK_ESCAPE, "cerrar");
-        }
-
+	public Juego(Ventana ventana) {
+		teclado = new Teclado(this);
+		raton = new Raton(this);
+		entidades = new ArrayList<Entidad>();
+		botones = new ArrayList<EntidadBoton>();
+		this.ventana = ventana;
+		ventana.setJuego(this);
+		terminado = false;
+		
+		teclado.crearListenerTeclado(KeyEvent.VK_ESCAPE, "cerrar");
+	}
+	
+	
 	public void ejecutarAccion(String accion) {
 		if(accion.equals("cerrar")) {
 			System.exit(0);

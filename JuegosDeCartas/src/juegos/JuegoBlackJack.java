@@ -30,8 +30,8 @@ public class JuegoBlackJack extends Juego {
 		entidades.add(puntosJugador);
 	}
 	
-        public void run() {}
-
+	public void run() {}
+	
 	private void cogerCarta() {
 		int ultCarta = ultimaCarta();
 		EntidadCarta carta = mazo.get(ultCarta);
@@ -99,12 +99,11 @@ public class JuegoBlackJack extends Juego {
 		
 		terminado = true;
 
-                for(EntidadBoton boton : botones) {
-                        if(!boton.getAccion().equals("salir")) {
-                                boton.setActivado(false);
-                        }
-                }
-
+		for(EntidadBoton boton : botones) {
+			if(!boton.getAccion().equals("salir")) {
+				boton.setActivado(false);
+			}
+		}
 		EntidadBoton reiniciar = new EntidadBoton(ventana.getWidth()/2+200, ventana.getHeight()/2+60, 110, 30, "Reiniciar", "reiniciar", this);
 		botones.add(reiniciar);
 	}
@@ -165,24 +164,24 @@ public class JuegoBlackJack extends Juego {
 		
 		EntidadBoton boton1 = new EntidadBoton(ventana.getWidth()/2+200, ventana.getHeight()/2-60, 110, 30, "Repartir", "repartir", this);
 		EntidadBoton boton2 = new EntidadBoton(ventana.getWidth()/2+200, ventana.getHeight()/2, 110, 30, "Plantarse", "plantarse", this);
-                EntidadBoton boton3 = new EntidadBoton(0, ventana.getHeight()-30, 65, 30, "Salir", "salir", this);
+		EntidadBoton boton3 = new EntidadBoton(0, ventana.getHeight()-30, 65, 30, "Salir", "salir", this);
 		
 		botones.add(boton1);
 		botones.add(boton2);
-                botones.add(boton3);
+		botones.add(boton3);
 	}
 	
 	@Override
 	public void ejecutarAccion(String accion) {
 		super.ejecutarAccion(accion);
-		if(!terminado && accion.equals("repartir")) {
+		if(accion.equals("repartir")) {
 			cogerCarta();
-		} else if(!terminado && accion.equals("plantarse")) {
+		} else if(accion.equals("plantarse")) {
 			terminar();
-		} else if(terminado && accion.equals("reiniciar")) {
+		} else if(accion.equals("reiniciar")) {
 			reiniciar();
 		} else if(accion.equals("salir")) {
-                        new Thread(new MenuPrincipal(ventana)).start();
-                }
+			new Thread(new MenuPrincipal(ventana)).start();
+		}
 	}
 }

@@ -1,11 +1,10 @@
 package principal;
 
-import juegos.JuegoDardos;
+import menu.MenuPrincipal;
 
 public class Lanzador {
 	public static void main(String[] args) {
-		//new JuegoBlackJack();
-		new JuegoDardos();
+		new Thread(new MenuPrincipal()).start();
 	}
 }
  
