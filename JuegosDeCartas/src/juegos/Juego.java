@@ -10,7 +10,7 @@ import pantalla.Raton;
 import pantalla.Teclado;
 import pantalla.Ventana;
 
-public abstract class Juego {
+public abstract class Juego implements Runnable {
 	protected Teclado teclado;;
 	protected Raton raton;
 	protected Ventana ventana;
@@ -29,6 +29,18 @@ public abstract class Juego {
 		teclado.crearListenerTeclado(KeyEvent.VK_ESCAPE, "cerrar");
 	}
 	
+        public Juego(Ventana ventana) {
+                 teclado = new Teclado(this);
+                 raton = new Raton(this);
+                 entidades = new ArrayList<Entidad>();
+                 botones = new ArrayList<EntidadBoton>();
+                 this.ventana = ventana;
+                 ventana.setJuego(this);
+                 terminado = false;
+
+                 teclado.crearListenerTeclado(KeyEvent.VK_ESCAPE, "cerrar");
+        }
+
 	public void ejecutarAccion(String accion) {
 		if(accion.equals("cerrar")) {
 			System.exit(0);
