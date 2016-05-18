@@ -2,7 +2,9 @@ package entidades;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 
 import juegos.Juego;
 
@@ -13,6 +15,7 @@ public class EntidadBoton extends Entidad {
 	private int alto;
 	private String texto;
 	private String accion;
+        private boolean activado;
 
 	public EntidadBoton(int x, int y, int ancho, int alto, String texto, String accion, Juego juego) {
 		super(x, y, juego);
@@ -20,12 +23,13 @@ public class EntidadBoton extends Entidad {
 		this.alto = alto;
 		this.texto = texto;
 		this.accion = accion;
+                activado = true; 
 	}
 
 	@Override
 	public void pintar(Graphics2D g) {
 		g.setColor(new Color(0, 0, 126));
-		if(juego.isTerminado() && !accion.equals("reiniciar")) {
+		if(!activado) {
 			g.setColor(new Color(64, 64, 64));
 		}			
 
@@ -36,7 +40,11 @@ public class EntidadBoton extends Entidad {
 
 		g.setColor(Color.WHITE);
 		g.setFont(fuente);
-		g.drawString(texto, x+16, y+20);
+                FontMetrics fm = g.getFontMetrics();
+                Rectangle2D r = fm.getStringBounds(texto, g);
+                int dx = (ancho - (int) r.getWidth())/2;
+                int dy = (alto - (int) r.getHeight())/2 + fm.getAscent();
+		g.drawString(texto, x+dx, y+dy);
 	}
 	
 	public String getAccion() {
@@ -50,4 +58,12 @@ public class EntidadBoton extends Entidad {
 	public int getY2() {
 		return y+alto;
 	}
+
+        public void setActivado(boolean b) {
+                activado = b;
+        }
+
+        public boolean isActivado() {
+                return activado; 
+        }
 }
