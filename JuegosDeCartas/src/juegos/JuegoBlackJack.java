@@ -9,6 +9,8 @@ import entidades.Entidad;
 import entidades.EntidadBoton;
 import entidades.EntidadCarta;
 import entidades.EntidadTexto;
+import menu.MenuPrincipal;
+import pantalla.Ventana;
 import principal.Jugador;
 
 public class JuegoBlackJack extends Juego {
@@ -17,8 +19,8 @@ public class JuegoBlackJack extends Juego {
 	private Jugador casa;
 	private EntidadTexto puntosJugador;
 
-	public JuegoBlackJack() {
-		super();
+	public JuegoBlackJack(Ventana ventana) {
+		super(ventana);
 		crearMazo();
 		crearBotones();
 		jugador = new Jugador();
@@ -28,6 +30,8 @@ public class JuegoBlackJack extends Juego {
 		entidades.add(puntosJugador);
 	}
 	
+        public void run() {}
+
 	private void cogerCarta() {
 		int ultCarta = ultimaCarta();
 		EntidadCarta carta = mazo.get(ultCarta);
@@ -95,6 +99,12 @@ public class JuegoBlackJack extends Juego {
 		
 		terminado = true;
 
+                for(EntidadBoton boton : botones) {
+                        if(!boton.getAccion().equals("salir")) {
+                                boton.setActivado(false);
+                        }
+                }
+
 		EntidadBoton reiniciar = new EntidadBoton(ventana.getWidth()/2+200, ventana.getHeight()/2+60, 110, 30, "Reiniciar", "reiniciar", this);
 		botones.add(reiniciar);
 	}
@@ -154,10 +164,12 @@ public class JuegoBlackJack extends Juego {
 		botones = new ArrayList<EntidadBoton>();
 		
 		EntidadBoton boton1 = new EntidadBoton(ventana.getWidth()/2+200, ventana.getHeight()/2-60, 110, 30, "Repartir", "repartir", this);
-		EntidadBoton boton2 = new EntidadBoton(ventana.getWidth()/2+200, ventana.getHeight()/2, 115, 30, "Plantarse", "plantarse", this);
+		EntidadBoton boton2 = new EntidadBoton(ventana.getWidth()/2+200, ventana.getHeight()/2, 110, 30, "Plantarse", "plantarse", this);
+                EntidadBoton boton3 = new EntidadBoton(0, ventana.getHeight()-30, 65, 30, "Salir", "salir", this);
 		
 		botones.add(boton1);
 		botones.add(boton2);
+                botones.add(boton3);
 	}
 	
 	@Override
@@ -169,6 +181,8 @@ public class JuegoBlackJack extends Juego {
 			terminar();
 		} else if(terminado && accion.equals("reiniciar")) {
 			reiniciar();
-		}
+		} else if(accion.equals("salir")) {
+                        new Thread(new MenuPrincipal(ventana)).start();
+                }
 	}
 }
