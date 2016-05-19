@@ -24,10 +24,11 @@ public class EntidadDardo extends Entidad {
 	private EntidadCaja barra;
 	private int puntos;
 	private boolean disparado;
+	private int ptFin;
 
 	public EntidadDardo(int x, int y, Juego juego) {
 		super(x, y, juego);
-		potencia = 100;
+		potencia = -1;
 		puntos = 0;
 		disparado = false;
 		try {
@@ -38,7 +39,7 @@ public class EntidadDardo extends Entidad {
 		}
 		
 		new EntidadCaja(50, 50, 25, 100, Color.WHITE, juego);
-		barra = new EntidadCaja(50, 50, 25, 5, Color.RED, juego);
+		barra = new EntidadCaja(50, 145, 25, 5, Color.RED, juego);
 	}
 	
 	public void animarX() {
@@ -89,9 +90,9 @@ public class EntidadDardo extends Entidad {
 			t.setRepeats(true);
 			t.start();
 		} else {
-			ActionListener listener = new ActionListener() {
+			ptFin = 220-potencia*2;
+			ActionListener listener = new ActionListener() {				
 				public void actionPerformed(ActionEvent e) {
-					int ptFin = 220-potencia*2;
 					y -= 1;
 					if(y <= ptFin) {
 						pararTimer();
@@ -145,6 +146,10 @@ public class EntidadDardo extends Entidad {
 	
 	public boolean isDisparado() {
 		return disparado;
+	}
+	
+	public int getPotencia() {
+		return potencia;
 	}
 
 }

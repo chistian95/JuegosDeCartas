@@ -56,6 +56,11 @@ public class JuegoDardos extends Juego implements Runnable {
 					}
 					textoPuntos.setTexto(dardo[d-1].getPuntos()+" puntos");
 				}
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 				int suma = 0;
 				for(int i=0; i<3; i++) {
 					entidades.remove(dardo[i]);
@@ -64,11 +69,7 @@ public class JuegoDardos extends Juego implements Runnable {
 				jugadores.get(j).setPuntos(jugadores.get(j).getPuntos()+suma);
 				textoJugadores.get(j).setColor(Color.WHITE);
 				textoJugadores.get(j).setTexto(jugadores.get(j).getNombre()+" ("+jugadores.get(j).getPuntos()+")");
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				
 				if(jugadores.get(j).getPuntos() >= LIMITE_PUNTOS) {
 					terminado = true;
 					new EntidadTexto(ventana.getWidth()/2-200, ventana.getHeight()/2, jugadores.get(j).getNombre()+" ha ganado!", this);
