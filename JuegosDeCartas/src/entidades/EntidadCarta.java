@@ -15,21 +15,27 @@ public class EntidadCarta extends Entidad {
 	protected static final int ANCHO = 32;
 	protected static final int ALTO = 48;
 	
-	private int palo;
-	private int numero;
-	private boolean levantada;
-	private Timer t;
+	protected int palo;
+	protected int numero;
+	protected boolean levantada;
+	protected Timer t;
+	protected boolean animando;
+	protected boolean clickable;
+	protected String accion;
 	
-	private int x1, y1, x2, y2;
+	protected int x1, y1, x2, y2;
 	
 	public EntidadCarta(int x, int y, int palo, int numero, boolean levantada, Juego juego) {
 		super(x, y, juego);
 		this.palo = palo;
 		this.numero = numero;
 		this.levantada = levantada;
+		animando = false;
+		clickable = false;
 	}
 	
-	public void animacion(int xa1, int ya1, int xa2, int ya2) {		
+	public void animacion(int xa1, int ya1, int xa2, int ya2) {	
+		animando = true;
 		x1 = xa1;
 		y1 = ya1;
 		x2 = xa2;
@@ -40,7 +46,9 @@ public class EntidadCarta extends Entidad {
 			public void actionPerformed(ActionEvent e) {
 				x += deltaX;
 				y += deltaY;
-				if(x <= x2) {
+				if(x2 < x1 && x <= x2) {
+					x = x2;
+				} else if(x2 >= x1 && x >= x2) {
 					x = x2;
 				}
 				if(y2 < y1 && y <= y2) {
@@ -50,6 +58,7 @@ public class EntidadCarta extends Entidad {
 				}
 				if(x == x2 && y == y2) {
 					pararTimer();
+					animando = false;
 				}
 			}
 		};
@@ -68,6 +77,26 @@ public class EntidadCarta extends Entidad {
 	
 	public int getNumero() {
 		return numero;
+	}
+	
+	public boolean isAnimando() {
+		return animando;
+	}
+	
+	public void setClickable(boolean b) {
+		clickable = b;
+	}
+	
+	public boolean isClickable() {
+		return true;
+	}
+	
+	public String getAccion() {
+		return x+","+y;
+	}
+	
+	public boolean isLevantada() {
+		return levantada;
 	}
 	
 	public void setLevantada(boolean b) {
